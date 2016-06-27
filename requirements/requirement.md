@@ -22,4 +22,8 @@
 
 1. 实现随机生成四个0到9且互不相同的数字；NumberGeneratorTest －> NumberGenerator
 2. 判断玩家输入是否满足“四个0到9且互不相同的数字”，满足返回true，不满足返回false；NumbersValidatorTest －> NumbersValidator
-3. 
+3. 当玩家输入不满足“四个0到9且互不相同的数字”时，反馈“输入不正确，重新输入”GuessNumberGameTest －>GuessNumberGame
+4. 根据玩家猜测，输出xAxB，A前面的数字代表位置和数字都对的个数，B前面的数字代表数字对但是位置不对的个数。
+5. 发现bad smell：过长函数GuessNumberGame.guess，使用抽取函数方法重构。
+6. 输出玩家所有猜测数据和结果；
+7. 当玩家猜对时，输出“胜出 全中”，当玩家猜测六次未成功，输出“六次猜测失败，游戏结束”
