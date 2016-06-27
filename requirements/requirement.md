@@ -17,3 +17,9 @@
 4. 输出玩家之前所有猜测的数字和结果。
 5. 最多接收玩家6次输入；
 6. 猜测成功时，游戏介绍；
+
+## 实现步骤：
+
+1. 实现随机生成四个0到9且互不相同的数字；NumberGeneratorTest －> NumberGenerator
+2. 判断玩家输入是否满足“四个0到9且互不相同的数字”，满足返回true，不满足返回false；NumbersValidatorTest －> NumbersValidator
+3. 
