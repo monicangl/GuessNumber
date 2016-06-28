@@ -3,44 +3,31 @@ package com.github.monicangl.tdd.guessnumber;
 import java.util.List;
 
 public class GuessNumberGame {
- //   private AnswerGenerator numberGenerator;
-//    private GuessNumberGameHandler gameHandler;
-//    private GuessRecord guessRecord;
-//    private NumbersValidator validator = new NumbersValidator();
     private List<Integer> answer;
     private GameHistory history;
+    private AnswerGenerator answerGenerator;
+    private PlayerAnswerValidator validator;
+    private boolean isSuccessful;
 
-    public GuessNumberGame(List<Integer> answer) {
-//        numberGenerator = new AnswerGenerator();
-//        guessRecord = new GuessRecord();
-//        gameHandler = new GuessNumberGameHandler(numberGenerator.generate());
-        //answer = generateAnswer();
-        this.answer = answer;
+    public GuessNumberGame(final AnswerGenerator answerGenerator) {
+        this.answerGenerator = answerGenerator;
+        answer = answerGenerator.generate();
         history = new GameHistory();
+        validator = new PlayerAnswerValidator();
     }
 
-//    public List<String> guessRecord() {
-//        return guessRecord.getRecord();
-//    }
-
-//    public String guess(List<Integer> guessNumbers) {
-//        if (!validator.validate(guessNumbers)) {
-//            guessRecord.addRecord(guessNumbers, "输入不正确，重新输入");
-//            return "输入不正确，重新输入";
-//        }
-//
-//        String result = gameHandler.handle(guessNumbers);
-//        guessRecord.addRecord(guessNumbers, result);
-//        return result;
-//    }
-//
-//    public void setNumbers(List<Integer> numbers) {
-//        this.gameHandler.setNumbers(numbers);
-//    }
-
     public String play(List<Integer> numbers) {
+        isSuccessful = false;
+        try {
+            validator.validate(numbers);
+        }
+        catch (GameDataInvalidException exception) {
+            return "输入不正确，重新输入";
+        }
+
         String result;
         if (numbers.equals(answer)) {
+            isSuccessful = true;
             result = "0A4B";
         }
         else {
@@ -65,10 +52,6 @@ public class GuessNumberGame {
         return result;
     }
 
-//    private List<Integer> generateAnswer() {
-//        return null;
-//    }
-
     public String promptError() {
         return "输入不正确，重新输入";
     }
@@ -79,5 +62,11 @@ public class GuessNumberGame {
 
     public void newGame() {
         history.clearRecord();
+        answer = answerGenerator.generate();
+        System.out.println();
+    }
+
+    public boolean getResult() {
+        return isSuccessful;
     }
 }
