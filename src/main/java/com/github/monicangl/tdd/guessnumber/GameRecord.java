@@ -3,10 +3,10 @@ package com.github.monicangl.tdd.guessnumber;
 import java.util.List;
 
 public class GameRecord {
-    private List<Integer> data;
+    private Integer[] data;
     private String result;
 
-    public GameRecord(List<Integer> data, String result) {
+    public GameRecord(Integer[] data, String result) {
         this.data = data;
         this.result = result;
     }
@@ -15,7 +15,7 @@ public class GameRecord {
         return result;
     }
 
-    public List<Integer> getData() {
+    public Integer[] getData() {
         return data;
     }
 }

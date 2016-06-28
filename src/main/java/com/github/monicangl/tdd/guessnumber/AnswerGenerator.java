@@ -8,14 +8,19 @@ public class AnswerGenerator {
     private static final int numberCount = 4;
     private static final int numberBound = 10;
 
-    public List<Integer> generate() {
-        List<Integer> answer = new ArrayList<>();
+    public Integer[] generate() {
+        List<Integer> numbers = new ArrayList<>();
         Random random = new Random();
-        while (answer.size() < numberCount) {
+        while (numbers.size() < numberCount) {
             int number = random.nextInt(numberBound);
-            if (!answer.contains(number)) {
-                answer.add(number);
+            if (!numbers.contains(number)) {
+                numbers.add(number);
             }
+        }
+
+        Integer[] answer = new Integer[numberCount];
+        for (int i = 0; i < numberCount; ++i) {
+            answer[i] = numbers.get(i);
         }
 
         return answer;

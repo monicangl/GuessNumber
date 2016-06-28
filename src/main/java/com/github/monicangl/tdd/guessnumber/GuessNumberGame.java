@@ -3,7 +3,7 @@ package com.github.monicangl.tdd.guessnumber;
 import java.util.List;
 
 public class GuessNumberGame {
-    private List<Integer> answer;
+    private Integer[] answer;
     private GameHistory history;
     private AnswerGenerator answerGenerator;
     private PlayerAnswerValidator validator;
@@ -11,12 +11,12 @@ public class GuessNumberGame {
 
     public GuessNumberGame(final AnswerGenerator answerGenerator) {
         this.answerGenerator = answerGenerator;
-        answer = answerGenerator.generate();
+        answer = this.answerGenerator.generate();
         history = new GameHistory();
         validator = new PlayerAnswerValidator();
     }
 
-    public String play(List<Integer> numbers) {
+    public String play(Integer... numbers) {
         isSuccessful = false;
         try {
             validator.validate(numbers);
@@ -34,15 +34,32 @@ public class GuessNumberGame {
             int rightPositionNumberCount = 0;
             int wrongPositionNumberCount = 0;
 
-            for (int i = 0; i < numbers.size(); ++i) {
-                if (this.answer.contains(numbers.get(i))) {
-                    if (numbers.get(i).equals(this.answer.get(i))) {
-                        ++rightPositionNumberCount;
-                    } else {
-                        ++wrongPositionNumberCount;
+            for (int i = 0; i < numbers.length; ++i) {
+                Integer number = numbers[i];
+                if (number.equals(answer[i])) {
+                    ++rightPositionNumberCount;
+                }
+                else {
+                    for (Integer anAnswer : answer) {
+                        if (number.equals(anAnswer)) {
+                            ++wrongPositionNumberCount;
+                            break;
+                        }
                     }
                 }
             }
+
+//            for (int i = 0; i < numbers.size(); ++i) {
+//
+//            }
+//                if (this.answer.contains(numbers.get(i))) {
+//                    if (numbers.get(i).equals(this.answer.get(i))) {
+//                        ++rightPositionNumberCount;
+//                    } else {
+//                        ++wrongPositionNumberCount;
+//                    }
+//                }
+//            }
 
             result = rightPositionNumberCount + "A" + wrongPositionNumberCount + "B";
         }
