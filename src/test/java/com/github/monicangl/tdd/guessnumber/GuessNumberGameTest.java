@@ -9,15 +9,17 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+//@RunWith(PowerMockRunner.class)
+//@PrepareForTest(GuessNumberGame.class)
 public class GuessNumberGameTest {
 
-    private GuessNumberGame guessNumberGame = new GuessNumberGame();
-    private List<Integer> rightNumbers;
+    private GuessNumberGame guessNumberGame;
+    List<Integer> answer;
 
     @Before
     public void setUp() throws Exception {
 
-        rightNumbers = new ArrayList<Integer>() {
+        answer = new ArrayList<Integer>() {
             {
                 add(1);
                 add(2);
@@ -25,77 +27,83 @@ public class GuessNumberGameTest {
                 add(4);
             }
         };
-        guessNumberGame.setNumbers(rightNumbers);
+
+        guessNumberGame = new GuessNumberGame(answer);
+
+//        guessNumberGame = spy(new GuessNumberGame());
+//        when(guessNumberGame, new String("generateAnswer")).thenReturn(answer);
     }
 
     @Test
-    public void should_be_able_to_return_input_error_message_if_input_invalid_numbers() {
+    public void should_be_able_to_return_play_result_when_guess_four_different_numbers_from_0_to_9() {
         // given
-        List<Integer> numbers = new ArrayList<Integer>() {
+        List<Integer> oneTwoThreeFour = answer;
+        List<Integer> oneFiveSixSeven = new ArrayList<Integer>() {
             {
                 add(1);
-                add(2);
+                add(5);
+                add(6);
+                add(7);
             }
         };
 
+        List<Integer> twoFourSevenEight = new ArrayList<Integer>() {
+            {
+                add(2);
+                add(4);
+                add(7);
+                add(8);
+            }
+        };
+
+        List<Integer> zeroThreeTwoFour = new ArrayList<Integer>() {
+            {
+                add(0);
+                add(3);
+                add(2);
+                add(4);
+            }
+        };
+
+        List<Integer> fiveSixSevenEight = new ArrayList<Integer>() {
+            {
+                add(5);
+                add(6);
+                add(7);
+                add(8);
+            }
+        };
+
+        List<Integer> fourThreeTwoOne = new ArrayList<Integer>() {
+            {
+                add(4);
+                add(3);
+                add(2);
+                add(1);
+            }
+        };
+
+        assertThat(guessNumberGame.play(oneFiveSixSeven), is("1A0B"));
+        assertThat(guessNumberGame.play(twoFourSevenEight), is("0A2B"));
+        assertThat(guessNumberGame.play(zeroThreeTwoFour), is("1A2B"));
+        assertThat(guessNumberGame.play(fiveSixSevenEight), is("0A0B"));
+        assertThat(guessNumberGame.play(fourThreeTwoOne), is("0A4B"));
+        assertThat(guessNumberGame.play(oneTwoThreeFour), is("0A4B"));
+    }
+
+    @Test
+    public void should_be_able_to_return_error_message() {
         // when
-        String result = guessNumberGame.guess(numbers);
+        String result = guessNumberGame.promptError();
 
         // then
         assertThat(result, is("输入不正确，重新输入"));
     }
 
     @Test
-    public void should_be_able_to_return_4A0B_if_guess_right() {
-        // when
-        String result = guessNumberGame.guess(rightNumbers);
-
-        // then
-        assertThat(result, is("4A0B"));
-    }
-
-    @Test
-    public void should_be_able_to_return_1A2B_if_one_number_is_match_and_on_right_position_and_two_numbers_are_right_but_on_wrong_position() {
+    public void should_be_able_to_return_play_history() {
         // given
-        List<Integer> guessNumbers = new ArrayList<Integer>() {
-            {
-                add(1);
-                add(3);
-                add(2);
-                add(5);
-            }
-        };
-
-        // when
-        String result = guessNumberGame.guess(guessNumbers);
-
-        // then
-        assertThat(result, is("1A2B"));
-    }
-
-    @Test
-    public void should_be_able_to_return_0A3B_if_no_number_is_match_and_on_right_position_and_three_numbers_are_right_but_on_wrong_position() {
-        // given
-        List<Integer> guessNumbers = new ArrayList<Integer>() {
-            {
-                add(0);
-                add(1);
-                add(2);
-                add(3);
-            }
-        };
-
-        // when
-        String result = guessNumberGame.guess(guessNumbers);
-
-        // then
-        assertThat(result, is("0A3B"));
-    }
-
-    @Test
-    public void should_be_able_to_return_guess_numbers_and_guess_result() {
-        // given
-        List<Integer> guessNumbers = new ArrayList<Integer>() {
+        List<Integer> playDataOne = new ArrayList<Integer>() {
             {
                 add(1);
                 add(5);
@@ -104,18 +112,7 @@ public class GuessNumberGameTest {
             }
         };
 
-        // when
-        guessNumberGame.guess(guessNumbers);
-        List<String> guessRecord = guessNumberGame.guessRecord();
-
-        // then
-        assertThat(guessRecord.get(0), is("1 5 2 3 1A2B"));
-    }
-
-    @Test
-    public void should_be_able_to_return_guess_numbers_and_guess_result_2() {
-        // given
-        List<Integer> firstGuessNumbers = new ArrayList<Integer>() {
+        List<Integer> playDataTwo = new ArrayList<Integer>() {
             {
                 add(1);
                 add(3);
@@ -124,7 +121,7 @@ public class GuessNumberGameTest {
             }
         };
 
-        List<Integer> secondGuessNumbers = new ArrayList<Integer>() {
+        List<Integer> playDataThree = new ArrayList<Integer>() {
             {
                 add(1);
                 add(5);
@@ -133,22 +130,61 @@ public class GuessNumberGameTest {
             }
         };
 
-        List<Integer> thirdGuessNumbers = new ArrayList<Integer>() {
-            {
-                add(3);
-                add(5);
-            }
-        };
-
         // when
-        guessNumberGame.guess(firstGuessNumbers);
-        guessNumberGame.guess(secondGuessNumbers);
-        guessNumberGame.guess(thirdGuessNumbers);
-        List<String> guessRecord = guessNumberGame.guessRecord();
+        guessNumberGame.newGame();
+        guessNumberGame.play(playDataOne);
+        guessNumberGame.play(playDataTwo);
+        guessNumberGame.play(playDataThree);
+
+        GameHistory guessRecord = guessNumberGame.getHistory();
 
         // then
-        assertThat(guessRecord.get(0), is("1 3 2 7 1A2B"));
-        assertThat(guessRecord.get(1), is("1 5 9 8 1A0B"));
-        assertThat(guessRecord.get(2), is("3 5 输入不正确，重新输入"));
+        assertThat(guessRecord.getPlayTimes(), is(3));
+        assertThat(guessRecord.getPlayData(0), is(playDataOne));
+        assertThat(guessRecord.getPlayData(1), is(playDataTwo));
+        assertThat(guessRecord.getPlayData(2), is(playDataThree));
+        assertThat(guessRecord.getPlayResult(0), is("1A2B"));
+        assertThat(guessRecord.getPlayResult(1), is("1A2B"));
+        assertThat(guessRecord.getPlayResult(2), is("1A0B"));
     }
+
+//    @Test
+//    public void should_be_able_to_return_guess_numbers_and_guess_result_2() {
+//        // given
+//        List<Integer> firstGuessNumbers = new ArrayList<Integer>() {
+//            {
+//                add(1);
+//                add(3);
+//                add(2);
+//                add(7);
+//            }
+//        };
+//
+//        List<Integer> secondGuessNumbers = new ArrayList<Integer>() {
+//            {
+//                add(1);
+//                add(5);
+//                add(9);
+//                add(8);
+//            }
+//        };
+//
+//        List<Integer> thirdGuessNumbers = new ArrayList<Integer>() {
+//            {
+//                add(3);
+//                add(5);
+//            }
+//        };
+//
+//        // when
+//        guessNumberGame.guess(firstGuessNumbers);
+//        guessNumberGame.guess(secondGuessNumbers);
+//        guessNumberGame.guess(thirdGuessNumbers);
+//        List<String> guessRecord = guessNumberGame.guessRecord();
+//
+//        // then
+//        assertThat(guessRecord.get(0), is("1 3 2 7 1A2B"));
+//        assertThat(guessRecord.get(1), is("1 5 9 8 1A0B"));
+//        assertThat(guessRecord.get(2), is("3 5 输入不正确，重新输入"));
+//    }
 }

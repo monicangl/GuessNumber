@@ -1,42 +1,55 @@
 package com.github.monicangl.tdd.guessnumber;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GuessNumberGame {
-    private List<Integer> numbers;
-    private List<String> guessRecord = new ArrayList<>(0);
+ //   private AnswerGenerator numberGenerator;
+//    private GuessNumberGameHandler gameHandler;
+//    private GuessRecord guessRecord;
+//    private NumbersValidator validator = new NumbersValidator();
+    private List<Integer> answer;
+    private GameHistory history;
 
-    public GuessNumberGame() {
-        numbers = new NumberGenerator().generateNumbers();
+    public GuessNumberGame(List<Integer> answer) {
+//        numberGenerator = new AnswerGenerator();
+//        guessRecord = new GuessRecord();
+//        gameHandler = new GuessNumberGameHandler(numberGenerator.generate());
+        //answer = generateAnswer();
+        this.answer = answer;
+        history = new GameHistory();
     }
 
-    public List<String> guessRecord() {
-        return guessRecord;
-    }
+//    public List<String> guessRecord() {
+//        return guessRecord.getRecord();
+//    }
 
-    public String guess(List<Integer> guessNumbers) {
-        NumbersValidator validator = new NumbersValidator();
-        if (!validator.validate(guessNumbers)) {
-            addGuessRecord(guessNumbers, "输入不正确，重新输入");
-            return "输入不正确，重新输入";
-        }
+//    public String guess(List<Integer> guessNumbers) {
+//        if (!validator.validate(guessNumbers)) {
+//            guessRecord.addRecord(guessNumbers, "输入不正确，重新输入");
+//            return "输入不正确，重新输入";
+//        }
+//
+//        String result = gameHandler.handle(guessNumbers);
+//        guessRecord.addRecord(guessNumbers, result);
+//        return result;
+//    }
+//
+//    public void setNumbers(List<Integer> numbers) {
+//        this.gameHandler.setNumbers(numbers);
+//    }
 
-        return guessResult(guessNumbers);
-    }
-
-    private String guessResult(List<Integer> guessNumbers) {
-        int rightPositionNumberCount = 0;
-        int wrongPositionNumberCount = 0;
+    public String play(List<Integer> numbers) {
         String result;
-
-        if (guessNumbers.equals(this.numbers)) {
-            result = "4A0B";
+        if (numbers.equals(answer)) {
+            result = "0A4B";
         }
         else {
-            for (int i = 0; i < guessNumbers.size(); ++i) {
-                if (this.numbers.contains(guessNumbers.get(i))) {
-                    if (guessNumbers.get(i) == this.numbers.get(i)) {
+            int rightPositionNumberCount = 0;
+            int wrongPositionNumberCount = 0;
+
+            for (int i = 0; i < numbers.size(); ++i) {
+                if (this.answer.contains(numbers.get(i))) {
+                    if (numbers.get(i).equals(this.answer.get(i))) {
                         ++rightPositionNumberCount;
                     } else {
                         ++wrongPositionNumberCount;
@@ -47,21 +60,24 @@ public class GuessNumberGame {
             result = rightPositionNumberCount + "A" + wrongPositionNumberCount + "B";
         }
 
+        history.addRecord(new GameRecord(numbers, result));
 
-        addGuessRecord(guessNumbers, result);
         return result;
     }
 
-    private void addGuessRecord(List<Integer> numbers, String result) {
-        String record = numbers.toString();
-        record = record.substring(1, record.length() - 1);
-        record = record.replace(",", "");
-        record = record.concat(" " + result);
+//    private List<Integer> generateAnswer() {
+//        return null;
+//    }
 
-        guessRecord.add(record);
+    public String promptError() {
+        return "输入不正确，重新输入";
     }
 
-    public void setNumbers(List<Integer> numbers) {
-        this.numbers = numbers;
+    public GameHistory getHistory() {
+        return history;
+    }
+
+    public void newGame() {
+        history.clearRecord();
     }
 }
