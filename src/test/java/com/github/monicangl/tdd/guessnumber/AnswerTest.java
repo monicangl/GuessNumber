@@ -9,7 +9,7 @@ public class AnswerTest {
     private Answer answer;
 
     public AnswerTest() {
-        answer = new Answer(new AnswerValidator());
+        answer = new Answer(new AnswerGenerator(), new AnswerValidator());
         answer.setAnswer(new Integer[]{1, 2, 3, 4});
     }
 
@@ -84,8 +84,6 @@ public class AnswerTest {
     public void should_be_able_to_prompt_error_message_if_player_answer_has_same_numbers() throws Exception{
         // given
         Integer[] playerAnswer = new Integer[]{1, 1, 2, 3};
-        AnswerValidator validator = new AnswerValidator();
-        Answer answer = new Answer(validator);
 
         // when
         String result = answer.check(playerAnswer).getValue();
@@ -98,8 +96,6 @@ public class AnswerTest {
     public void should_be_able_to_prompt_error_message_if_player_answer_not_four_numbers() throws Exception{
         // given
         Integer[] playerAnswer = new Integer[]{1, 2};
-        AnswerValidator validator = new AnswerValidator();
-        Answer answer = new Answer(validator);
 
         // when
         String result = answer.check(playerAnswer).getValue();

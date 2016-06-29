@@ -3,13 +3,11 @@ package com.github.monicangl.tdd.guessnumber;
 import javafx.util.Pair;
 
 public class GuessNumberGame {
-    private AnswerGenerator answerGenerator;
     private Answer answer;
     private GameState gameState;
     private static final int chance = 6;
 
-    public GuessNumberGame(final AnswerGenerator answerGenerator, Answer answer) {
-        this.answerGenerator = answerGenerator;
+    public GuessNumberGame(Answer answer) {
         this.answer = answer;
     }
 
@@ -26,7 +24,7 @@ public class GuessNumberGame {
 
     public void start() {
         gameState = new GameState();
-        answer.setAnswer(answerGenerator.generate());
+        answer.initAnswer();
         System.out.println("你有六次猜测机会, 请输入答案, 以空格分隔数字:");
     }
 

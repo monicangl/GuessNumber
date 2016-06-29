@@ -1,13 +1,16 @@
 package com.github.monicangl.tdd.guessnumber;
 
 import javafx.util.Pair;
+
 import java.util.Arrays;
 
 public class Answer {
+    private final AnswerGenerator generator;
     private final AnswerValidator validator;
     private Integer[] answer;
 
-    public Answer(AnswerValidator validator) {
+    public Answer(AnswerGenerator generator, AnswerValidator validator) {
+        this.generator = generator;
         this.validator = validator;
     }
 
@@ -72,5 +75,9 @@ public class Answer {
 
     public void setAnswer(Integer[] answer) {
         this.answer = answer;
+    }
+
+    public void initAnswer() {
+        this.answer = generator.generate();
     }
 }

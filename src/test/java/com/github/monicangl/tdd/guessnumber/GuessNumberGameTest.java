@@ -13,12 +13,12 @@ public class GuessNumberGameTest {
 
     @Before
     public void setUp() throws Exception {
-        Integer[] answer = {1, 2, 3, 4};
+        Integer[] numbers = {1, 2, 3, 4};
         AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
-        when(answerGenerator.generate()).thenReturn(answer);
+        when(answerGenerator.generate()).thenReturn(numbers);
         AnswerValidator answerValidator = new AnswerValidator();
-        Answer answerChecker = new Answer(answerValidator);
-        guessNumberGame = new GuessNumberGame(answerGenerator, answerChecker);
+        Answer answer = new Answer(answerGenerator, answerValidator);
+        guessNumberGame = new GuessNumberGame(answer);
         guessNumberGame.start();
     }
 
