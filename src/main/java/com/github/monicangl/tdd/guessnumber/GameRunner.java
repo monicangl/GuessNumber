@@ -6,8 +6,8 @@ public class GameRunner {
 
         AnswerGenerator answerGenerator = new AnswerGenerator();
         AnswerValidator answerValidator = new AnswerValidator();
-        AnswerChecker answerChecker = new AnswerChecker(answerValidator);
-        GuessNumberGame game = new GuessNumberGame(answerGenerator, answerChecker);
+        Answer answer = new Answer(answerValidator);
+        GuessNumberGame game = new GuessNumberGame(answerGenerator, answer);
 
         game.start();
         player.play(game);

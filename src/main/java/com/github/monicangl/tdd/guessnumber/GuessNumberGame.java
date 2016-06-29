@@ -4,17 +4,17 @@ import javafx.util.Pair;
 
 public class GuessNumberGame {
     private AnswerGenerator answerGenerator;
-    private AnswerChecker answerChecker;
+    private Answer answer;
     private GameState gameState;
     private static final int chance = 6;
 
-    public GuessNumberGame(final AnswerGenerator answerGenerator, AnswerChecker answerChecker) {
+    public GuessNumberGame(final AnswerGenerator answerGenerator, Answer answer) {
         this.answerGenerator = answerGenerator;
-        this.answerChecker = answerChecker;
+        this.answer = answer;
     }
 
     public void play(Integer[] playerAnswer) {
-        Pair<Boolean, String> result = answerChecker.check(playerAnswer);
+        Pair<Boolean, String> result = answer.check(playerAnswer);
         gameState.history.addRecord(new GameRecord(playerAnswer, result.getValue()));
         gameState.isSuccessful = result.getKey();
         System.out.println(result.getValue());
@@ -26,7 +26,7 @@ public class GuessNumberGame {
 
     public void start() {
         gameState = new GameState();
-        answerChecker.setAnswer(answerGenerator.generate());
+        answer.setAnswer(answerGenerator.generate());
         System.out.println("你有六次猜测机会, 请输入答案, 以空格分隔数字:");
     }
 

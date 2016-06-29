@@ -5,12 +5,12 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class AnswerCheckerTest {
-    private AnswerChecker answerChecker;
+public class AnswerTest {
+    private Answer answer;
 
-    public AnswerCheckerTest() {
-        answerChecker = new AnswerChecker(new AnswerValidator());
-        answerChecker.setAnswer(new Integer[]{1, 2, 3, 4});
+    public AnswerTest() {
+        answer = new Answer(new AnswerValidator());
+        answer.setAnswer(new Integer[]{1, 2, 3, 4});
     }
 
     @Test
@@ -19,7 +19,7 @@ public class AnswerCheckerTest {
         Integer[] playerAnswer = new Integer[]{1, 2, 3, 4};
 
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("4A0B"));
@@ -30,7 +30,7 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{1, 5, 6, 7};
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("1A0B"));
@@ -41,7 +41,7 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{2, 4, 7 ,8};
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("0A2B"));
@@ -52,7 +52,7 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{0, 3, 2, 4};
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("1A2B"));
@@ -63,7 +63,7 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{5, 6, 7, 8};
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("0A0B"));
@@ -74,7 +74,7 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{4, 3, 2, 1};
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("0A4B"));
@@ -85,10 +85,10 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{1, 1, 2, 3};
         AnswerValidator validator = new AnswerValidator();
-        AnswerChecker answerChecker = new AnswerChecker(validator);
+        Answer answer = new Answer(validator);
 
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("输入不正确，重新输入"));
@@ -99,10 +99,10 @@ public class AnswerCheckerTest {
         // given
         Integer[] playerAnswer = new Integer[]{1, 2};
         AnswerValidator validator = new AnswerValidator();
-        AnswerChecker answerChecker = new AnswerChecker(validator);
+        Answer answer = new Answer(validator);
 
         // when
-        String result = answerChecker.check(playerAnswer).getValue();
+        String result = answer.check(playerAnswer).getValue();
 
         // then
         assertThat(result, is("输入不正确，重新输入"));

@@ -1,14 +1,13 @@
 package com.github.monicangl.tdd.guessnumber;
 
 import javafx.util.Pair;
-
 import java.util.Arrays;
 
-public class AnswerChecker {
+public class Answer {
     private final AnswerValidator validator;
     private Integer[] answer;
 
-    public AnswerChecker(AnswerValidator validator) {
+    public Answer(AnswerValidator validator) {
         this.validator = validator;
     }
 
