@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PlayerAnswerValidator {
+public class AnswerValidator {
     private static final int countNumber = 4;
     private static final int numberBound = 10;
 

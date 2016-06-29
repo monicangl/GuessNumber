@@ -5,7 +5,7 @@ public class GameRunner {
         GamePlayer player = new GamePlayer();
 
         AnswerGenerator answerGenerator = new AnswerGenerator();
-        PlayerAnswerValidator answerValidator = new PlayerAnswerValidator();
+        AnswerValidator answerValidator = new AnswerValidator();
         AnswerChecker answerChecker = new AnswerChecker(answerValidator);
         GuessNumberGame game = new GuessNumberGame(answerGenerator, answerChecker);
 

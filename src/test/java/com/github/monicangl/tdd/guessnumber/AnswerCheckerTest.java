@@ -9,7 +9,7 @@ public class AnswerCheckerTest {
     private AnswerChecker answerChecker;
 
     public AnswerCheckerTest() {
-        answerChecker = new AnswerChecker(new PlayerAnswerValidator());
+        answerChecker = new AnswerChecker(new AnswerValidator());
         answerChecker.setAnswer(new Integer[]{1, 2, 3, 4});
     }
 
@@ -80,33 +80,31 @@ public class AnswerCheckerTest {
         assertThat(result, is("0A4B"));
     }
 
-//    @Test
-//    public void should_be_able_to_prompt_error_message_if_player_answer_has_same_numbers() throws Exception{
-//        // given
-//        Integer[] playerAnswer = new Integer[]{1, 1, 2, 3};
-//        PlayerAnswerValidator validator = mock(PlayerAnswerValidator.class);
-//        //when(validator.validate(playerAnswer)).thenThrow(new AnswerInvalidException(""));
-//        AnswerChecker answerChecker = new AnswerChecker(validator);
-//
-//        // when
-//        String result = answerChecker.check(playerAnswer).getValue();
-//
-//        // then
-//        assertThat(result, is("输入不正确，重新输入"));
-//    }
-//
-//    @Test
-//    public void should_be_able_to_prompt_error_message_if_player_answer_not_four_numbers() throws Exception{
-//        // given
-//        Integer[] playerAnswer = new Integer[]{1, 2};
-//        PlayerAnswerValidator validator = mock(PlayerAnswerValidator.class);
-//        //when(validator.validate(playerAnswer)).thenThrow(new AnswerInvalidException(""));
-//        AnswerChecker answerChecker = new AnswerChecker(validator);
-//
-//        // when
-//        String result = answerChecker.check(playerAnswer).getValue();
-//
-//        // then
-//        assertThat(result, is("输入不正确，重新输入"));
-//    }
+    @Test
+    public void should_be_able_to_prompt_error_message_if_player_answer_has_same_numbers() throws Exception{
+        // given
+        Integer[] playerAnswer = new Integer[]{1, 1, 2, 3};
+        AnswerValidator validator = new AnswerValidator();
+        AnswerChecker answerChecker = new AnswerChecker(validator);
+
+        // when
+        String result = answerChecker.check(playerAnswer).getValue();
+
+        // then
+        assertThat(result, is("输入不正确，重新输入"));
+    }
+
+    @Test
+    public void should_be_able_to_prompt_error_message_if_player_answer_not_four_numbers() throws Exception{
+        // given
+        Integer[] playerAnswer = new Integer[]{1, 2};
+        AnswerValidator validator = new AnswerValidator();
+        AnswerChecker answerChecker = new AnswerChecker(validator);
+
+        // when
+        String result = answerChecker.check(playerAnswer).getValue();
+
+        // then
+        assertThat(result, is("输入不正确，重新输入"));
+    }
 }

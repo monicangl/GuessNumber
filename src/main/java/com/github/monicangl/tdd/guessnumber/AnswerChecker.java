@@ -5,10 +5,10 @@ import javafx.util.Pair;
 import java.util.Arrays;
 
 public class AnswerChecker {
-    private final PlayerAnswerValidator validator;
+    private final AnswerValidator validator;
     private Integer[] answer;
 
-    public AnswerChecker(PlayerAnswerValidator validator) {
+    public AnswerChecker(AnswerValidator validator) {
         this.validator = validator;
     }
 

@@ -16,7 +16,7 @@ public class GuessNumberGameTest {
         Integer[] answer = {1, 2, 3, 4};
         AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
         when(answerGenerator.generate()).thenReturn(answer);
-        PlayerAnswerValidator answerValidator = new PlayerAnswerValidator();
+        AnswerValidator answerValidator = new AnswerValidator();
         AnswerChecker answerChecker = new AnswerChecker(answerValidator);
         guessNumberGame = new GuessNumberGame(answerGenerator, answerChecker);
         guessNumberGame.start();
