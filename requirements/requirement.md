@@ -16,18 +16,9 @@
 ## 实现步骤：
 Task 1:
 
-1. 输入四个0到9且互不相同的数字，输出游戏结果xAxB，A前面的数字代表位置和数字都对的个数，B前面的数字代表数字对但是位置不对的个数。
-2. 输入无效时，游戏输出“输入不正确，重新输入”
-3. 输出玩家的游戏记录（之前猜测数据和结果）
-
-Task2:
-
-1. 实现游戏答案生成器，随机生成四个0到9且互不相同的数字；AnswerGeneratorTest －> AnswerGenerator
-
-Task3:
-
-1. 判断输入数字序列是否有效：“四个0到9且互不相同的数字”，无效时抛出异常；NumbersValidatorTest －> NumbersValidator
-
-Task
-
-1. 当玩家猜对时，输出“胜出 全中”，当玩家猜测六次未成功，输出“六次猜测失败，游戏结束”
+1. 输入四个0到9且互不相同的数字，输出猜测是否成功，以及提示消息xAxB，A前面的数字代表位置和数字都对的个数，B前面的数字代表数字对但是位置不对的个数; AnswerCheckerTest -> AnswerChecker
+2. 输入数字验证无效时，输出猜测失败，并提示“输入不正确，重新输入”；AnswerCheckerTest -> AnswerChecker
+3. 当玩家猜对时，输出“胜出 全中”，当玩家猜测六次未成功，输出“六次猜测失败，游戏结束”; GuessNumberGameTest -> GuessNumberGame
+4. 输出玩家的游戏记录（之前猜测数据和结果）
+5. 实现游戏答案生成器，随机生成四个0到9且互不相同的数字；AnswerGeneratorTest －> AnswerGenerator
+6. 判断输入数字序列是否有效：“四个0到9且互不相同的数字”，无效时抛出异常；NumbersValidatorTest －> NumbersValidator

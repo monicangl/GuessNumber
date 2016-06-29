@@ -1,89 +1,44 @@
 package com.github.monicangl.tdd.guessnumber;
 
-import java.util.List;
+import javafx.util.Pair;
 
 public class GuessNumberGame {
-    private Integer[] answer;
-    private GameHistory history;
     private AnswerGenerator answerGenerator;
-    private PlayerAnswerValidator validator;
-    private boolean isSuccessful;
+    private AnswerChecker answerChecker;
+    private GameState gameState;
+    private static final int chance = 6;
 
-    public GuessNumberGame(final AnswerGenerator answerGenerator) {
+    public GuessNumberGame(final AnswerGenerator answerGenerator, AnswerChecker answerChecker) {
         this.answerGenerator = answerGenerator;
-        answer = this.answerGenerator.generate();
-        history = new GameHistory();
-        validator = new PlayerAnswerValidator();
+        this.answerChecker = answerChecker;
     }
 
-    public String play(Integer... numbers) {
-        isSuccessful = false;
-        try {
-            validator.validate(numbers);
-        }
-        catch (GameDataInvalidException exception) {
-            return "输入不正确，重新输入";
-        }
-
-        String result;
-        if (numbers.equals(answer)) {
-            isSuccessful = true;
-            result = "0A4B";
-        }
-        else {
-            int rightPositionNumberCount = 0;
-            int wrongPositionNumberCount = 0;
-
-            for (int i = 0; i < numbers.length; ++i) {
-                Integer number = numbers[i];
-                if (number.equals(answer[i])) {
-                    ++rightPositionNumberCount;
-                }
-                else {
-                    for (Integer anAnswer : answer) {
-                        if (number.equals(anAnswer)) {
-                            ++wrongPositionNumberCount;
-                            break;
-                        }
-                    }
-                }
-            }
-
-//            for (int i = 0; i < numbers.size(); ++i) {
-//
-//            }
-//                if (this.answer.contains(numbers.get(i))) {
-//                    if (numbers.get(i).equals(this.answer.get(i))) {
-//                        ++rightPositionNumberCount;
-//                    } else {
-//                        ++wrongPositionNumberCount;
-//                    }
-//                }
-//            }
-
-            result = rightPositionNumberCount + "A" + wrongPositionNumberCount + "B";
-        }
-
-        history.addRecord(new GameRecord(numbers, result));
-
-        return result;
-    }
-
-    public String promptError() {
-        return "输入不正确，重新输入";
+    public void play(Integer[] playerAnswer) {
+        Pair<Boolean, String> result = answerChecker.check(playerAnswer);
+        gameState.history.addRecord(new GameRecord(playerAnswer, result.getValue()));
+        gameState.isSuccessful = result.getKey();
+        System.out.println(result.getValue());
     }
 
     public GameHistory getHistory() {
-        return history;
+        return gameState.history;
     }
 
-    public void newGame() {
-        history.clearRecord();
-        answer = answerGenerator.generate();
-        System.out.println();
+    public void start() {
+        gameState = new GameState();
+        answerChecker.setAnswer(answerGenerator.generate());
+        System.out.println("你有六次猜测机会, 请输入答案, 以空格分隔数字:");
     }
 
-    public boolean getResult() {
-        return isSuccessful;
+    public boolean isOver() {
+        return gameState.isSuccessful || gameState.history.getPlayTimes() == chance;
+    }
+
+    public String getResult() {
+        if (gameState.isSuccessful) {
+            return "全中,胜出";
+        }
+
+        return "六次未猜中,游戏失败";
     }
 }

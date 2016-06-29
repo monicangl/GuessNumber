@@ -10,19 +10,19 @@ public class PlayerAnswerValidator {
 
     public void validate(Integer[] numbers) {
         if (numbers.length != countNumber) {
-            throw new GameDataInvalidException("The count of number is not" + countNumber);
+            throw new AnswerInvalidException("The count of number is not" + countNumber);
         }
 
         Set<Integer> uniqueNumbers = new HashSet<>(0);
         Collections.addAll(uniqueNumbers, numbers);
 
         if (uniqueNumbers.size() != countNumber) {
-            throw new GameDataInvalidException("There are same numbers");
+            throw new AnswerInvalidException("There are same numbers");
         }
 
         for (Integer number : numbers) {
             if (!(0 <= number && number < numberBound)) {
-                throw new GameDataInvalidException("The number is not in right range");
+                throw new AnswerInvalidException("The number is not in right range");
             }
         }
     }

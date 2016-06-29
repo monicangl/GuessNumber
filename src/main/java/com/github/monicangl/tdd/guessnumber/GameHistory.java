@@ -27,8 +27,22 @@ public class GameHistory {
     }
 
     private List<GameRecord> records = new ArrayList<>(0);
+}
 
-    public void clearRecord() {
-        records.clear();
+class GameRecord {
+    private Integer[] data;
+    private String result;
+
+    public GameRecord(Integer[] data, String result) {
+        this.data = data;
+        this.result = result;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public Integer[] getData() {
+        return data;
     }
 }
