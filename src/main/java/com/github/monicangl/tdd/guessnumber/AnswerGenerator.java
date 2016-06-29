@@ -1,28 +1,23 @@
 package com.github.monicangl.tdd.guessnumber;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 public class AnswerGenerator {
     private static final int numberCount = 4;
     private static final int numberBound = 10;
 
-    public Integer[] generate() {
-        List<Integer> numbers = new ArrayList<>();
+    public List<Integer> generate() {
+        Set<Integer> numbers = new HashSet<>(0);
         Random random = new Random();
         while (numbers.size() < numberCount) {
-            int number = random.nextInt(numberBound);
-            if (!numbers.contains(number)) {
-                numbers.add(number);
-            }
+            numbers.add(random.nextInt(numberBound));
         }
-
-        Integer[] answer = new Integer[numberCount];
-        for (int i = 0; i < numberCount; ++i) {
-            answer[i] = numbers.get(i);
-        }
-
+        List<Integer> answer = newArrayList(numbers);
         return answer;
     }
 }

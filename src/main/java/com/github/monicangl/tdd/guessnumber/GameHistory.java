@@ -12,11 +12,11 @@ public class GameHistory {
         return records.size();
     }
 
-    public Integer[] getPlayData(int time) {
+    public List<Integer> getPlayData(int time) {
         if (time >= records.size()) {
             return null;
         }
-        return (records.get(time)).getData();
+        return (records.get(time)).getAnswer();
     }
 
     public String getPlayResult(int time) {

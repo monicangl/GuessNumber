@@ -1,26 +1,20 @@
 package com.github.monicangl.tdd.guessnumber;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class AnswerValidator {
     private static final int countNumber = 4;
     private static final int numberBound = 10;
 
-    public void validate(Integer[] numbers) {
-        if (numbers.length != countNumber) {
+    public void validate(List<Integer> answer) {
+        if (answer.size() != countNumber) {
             throw new AnswerInvalidException("The count of number is not" + countNumber);
         }
-
-        Set<Integer> uniqueNumbers = new HashSet<>(0);
-        Collections.addAll(uniqueNumbers, numbers);
-
-        if (uniqueNumbers.size() != countNumber) {
-            throw new AnswerInvalidException("There are same numbers");
+        if (new HashSet<>(answer).size() != countNumber) {
+            throw new AnswerInvalidException("There are same answer");
         }
-
-        for (Integer number : numbers) {
+        for (Integer number : answer) {
             if (!(0 <= number && number < numberBound)) {
                 throw new AnswerInvalidException("The number is not in right range");
             }

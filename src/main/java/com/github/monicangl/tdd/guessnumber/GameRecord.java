@@ -1,19 +1,20 @@
 package com.github.monicangl.tdd.guessnumber;
 
-public class GameRecord {
-    private Integer[] data;
-    private String result;
+import java.util.List;
 
-    public GameRecord(Integer[] data, String result) {
-        this.data = data;
-        this.result = result;
+public class GameRecord {
+    private List<Integer> answer;
+    private String message;
+
+    public GameRecord(List<Integer> answer, String message) {
+        this.answer = answer;
+        this.message = message;
     }
 
     public String getResult() {
-        return result;
+        return message;
     }
-
-    public Integer[] getData() {
-        return data;
+    public List<Integer> getAnswer() {
+        return answer;
     }
 }

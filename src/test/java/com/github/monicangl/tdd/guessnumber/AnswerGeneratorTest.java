@@ -2,8 +2,8 @@ package com.github.monicangl.tdd.guessnumber;
 
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -16,13 +16,12 @@ public class AnswerGeneratorTest {
     @Test
     public void should_be_able_to_return_four_different_numbers_from_0_to_9() {
         // when
-        Integer[] answer = numberGenerator.generate();
-        Set<Integer> diffNumbers = new HashSet<>(0);
-        Collections.addAll(diffNumbers, answer);
+        List<Integer> answer = numberGenerator.generate();
+        Set<Integer> uniqueNumbers = new HashSet<>(answer);
 
         // then
-        assertThat(answer.length, is(4));
-        assertThat(diffNumbers.size(), is(4));
+        assertThat(answer.size(), is(4));
+        assertThat(uniqueNumbers.size(), is(4));
 //        assertThat(answer, not(hasItem(greaterThanOrEqualTo(0))));
     }
 

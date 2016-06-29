@@ -2,79 +2,56 @@ package com.github.monicangl.tdd.guessnumber;
 
 import javafx.util.Pair;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Answer {
     private final AnswerGenerator generator;
     private final AnswerValidator validator;
-    private Integer[] answer;
+    private List<Integer> answer;
 
     public Answer(AnswerGenerator generator, AnswerValidator validator) {
         this.generator = generator;
         this.validator = validator;
     }
 
-    public Pair<Boolean, String> check(Integer[] playerAnswer) {
+    public Pair<Boolean, String> check(List<Integer> playerAnswer) {
         if (!validatePlayerAnswer(playerAnswer)) {
             return new Pair<>(false, "输入不正确，重新输入");
         }
-        int countOfRightNumberOnRightPosition = 0;
-        int countOfRightNumberOnWrongPosition = 0;
-        boolean success = false;
-        if (isCorrect(answer, playerAnswer)) {
-            success = true;
-            countOfRightNumberOnRightPosition = answer.length;
-        } else {
-            countOfRightNumberOnRightPosition = checkRightNumberOnRightPosition(playerAnswer);
-            countOfRightNumberOnWrongPosition = checkRightNumberOnWrongPosition(playerAnswer);
-        }
+        int countOfRightNumberOnRightPosition = this.countOfRightNumberOnRightPosition(playerAnswer);
+        int countOfRightNumberOnWrongPosition = this.countOfRightNumberOnWrongPosition(playerAnswer);
+        boolean success = countOfRightNumberOnRightPosition == playerAnswer.size();
         return new Pair<>(success, countOfRightNumberOnRightPosition + "A" + countOfRightNumberOnWrongPosition + "B");
     }
 
-    private boolean validatePlayerAnswer(Integer[] numbers) {
+    private boolean validatePlayerAnswer(List<Integer> answer) {
         try {
-            validator.validate(numbers);
+            validator.validate(answer);
         }
         catch (AnswerInvalidException exception) {
             return false;
         }
-
         return true;
     }
 
-    private int checkRightNumberOnRightPosition(Integer[] playerAnwser) {
+    private int countOfRightNumberOnRightPosition(List<Integer> playerAnswer) {
         int countOfRightNumberOnRightPosition = 0;
-        for (int i = 0; i < playerAnwser.length; ++i) {
-            Integer number = playerAnwser[i];
-            if (number.equals(answer[i])) {
+        for (int number : playerAnswer) {
+            if (answer.contains(number) && answer.indexOf(number) == playerAnswer.indexOf(number)) {
                 ++countOfRightNumberOnRightPosition;
             }
         }
         return countOfRightNumberOnRightPosition;
     }
 
-    private int checkRightNumberOnWrongPosition(Integer[] playerAnwser) {
+    private int countOfRightNumberOnWrongPosition(List<Integer> playerAnswer) {
         int countOfRightNumberOnWrongPosition = 0;
-        for (int i = 0; i < playerAnwser.length; ++i) {
-            Integer number = playerAnwser[i];
-            if (!number.equals(answer[i])) {
-                for (Integer anAnswer : answer) {
-                    if (number.equals(anAnswer)) {
-                        ++countOfRightNumberOnWrongPosition;
-                        break;
-                    }
-                }
+        for (int number : playerAnswer) {
+            if (answer.contains(number) && answer.indexOf(number) != playerAnswer.indexOf(number)) {
+                ++countOfRightNumberOnWrongPosition;
             }
         }
         return countOfRightNumberOnWrongPosition;
-    }
-
-    private boolean isCorrect(Integer[] answer, Integer[] playerAnswer) {
-        return Arrays.equals(playerAnswer, answer);
-    }
-
-    public void setAnswer(Integer[] answer) {
-        this.answer = answer;
     }
 
     public void initAnswer() {

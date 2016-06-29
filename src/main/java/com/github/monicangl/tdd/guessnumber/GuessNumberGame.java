@@ -2,6 +2,8 @@ package com.github.monicangl.tdd.guessnumber;
 
 import javafx.util.Pair;
 
+import java.util.List;
+
 public class GuessNumberGame {
     private Answer answer;
     private GameState gameState;
@@ -11,7 +13,7 @@ public class GuessNumberGame {
         this.answer = answer;
     }
 
-    public void play(Integer[] playerAnswer) {
+    public void play(List<Integer> playerAnswer) {
         Pair<Boolean, String> result = answer.check(playerAnswer);
         gameState.history.addRecord(new GameRecord(playerAnswer, result.getValue()));
         gameState.isSuccessful = result.getKey();
