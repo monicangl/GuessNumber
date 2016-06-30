@@ -5,15 +5,15 @@ import com.github.monicangl.tdd.guessnumber.game.answer.exception.AnswerInvalidE
 import java.util.HashSet;
 import java.util.List;
 
-public class AnswerValidator {
-    private static final int countNumber = 4;
-    private static final int numberBound = 10;
+import static com.github.monicangl.tdd.guessnumber.game.answer.Constants.numberBound;
+import static com.github.monicangl.tdd.guessnumber.game.answer.Constants.numberCount;
 
+public class AnswerValidator {
     public void validate(List<Integer> answer) {
-        if (answer.size() != countNumber) {
-            throw new AnswerInvalidException("The count of number is not" + countNumber);
+        if (answer.size() != numberCount) {
+            throw new AnswerInvalidException("The count of number is not" + numberCount);
         }
-        if (new HashSet<>(answer).size() != countNumber) {
+        if (new HashSet<>(answer).size() != numberCount) {
             throw new AnswerInvalidException("There are same answer");
         }
         for (Integer number : answer) {
