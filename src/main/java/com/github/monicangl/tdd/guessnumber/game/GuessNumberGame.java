@@ -2,11 +2,10 @@ package com.github.monicangl.tdd.guessnumber.game;
 
 import com.github.monicangl.tdd.guessnumber.game.answer.Answer;
 import com.github.monicangl.tdd.guessnumber.game.answer.AnswerResult;
-import com.github.monicangl.tdd.guessnumber.game.state.history.GameHistory;
-import com.github.monicangl.tdd.guessnumber.game.state.history.GameRecord;
 import com.github.monicangl.tdd.guessnumber.game.state.GameState;
 import com.github.monicangl.tdd.guessnumber.game.state.GameStatus;
-import com.github.monicangl.tdd.guessnumber.player.GamePlayer;
+import com.github.monicangl.tdd.guessnumber.game.state.history.GameHistory;
+import com.github.monicangl.tdd.guessnumber.game.state.history.GameRecord;
 
 import java.util.List;
 
@@ -26,16 +25,13 @@ public class GuessNumberGame {
         System.out.println(result.getMessage());
     }
 
-    public GameHistory getHistory() {
-        return gameState.history;
-    }
-
     public void start() {
         gameState = new GameState(GameStatus.RUNNING);
         answer.initAnswer();
+        System.out.println("你有六次猜测机会, 请输入答案, 以空格分隔数字:");
     }
 
-    private boolean isOver() {
+    public boolean isOver() {
         return gameState.status == GameStatus.SUCCESS
                 || gameState.history.getPlayTimes() == chance;
     }
@@ -48,11 +44,15 @@ public class GuessNumberGame {
         return "六次未猜中,游戏失败";
     }
 
-    public void play(GamePlayer gamePlayer) {
-        start();
-        System.out.println("你有六次猜测机会, 请输入答案, 以空格分隔数字:");
-        while (!isOver()) {
-            play(gamePlayer.answer());
-        }
+    GameHistory getHistory() {
+        return gameState.history;
     }
+
+//    public void play(GamePlayer gamePlayer) {
+//        start();
+//        System.out.println("你有六次猜测机会, 请输入答案, 以空格分隔数字:");
+//        while (!isOver()) {
+//            play(gamePlayer.answer());
+//        }
+//    }
 }

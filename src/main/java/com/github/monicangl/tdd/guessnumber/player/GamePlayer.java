@@ -8,11 +8,11 @@ import java.util.Scanner;
 
 public class GamePlayer {
     public void play(GuessNumberGame game) {
-        game.play(this);
-//        while (!game.isOver()) {
-//            List<Integer> playerAnswer = answer();
-//            game.play(playerAnswer);
-//        }
+//        game.play(this);
+        do {
+            game.play(answer());
+        }
+        while (!game.isOver());
     }
 
     public List<Integer> answer() {

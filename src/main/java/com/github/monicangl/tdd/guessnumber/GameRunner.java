@@ -15,7 +15,7 @@ public class GameRunner {
         Answer answer = new Answer(answerGenerator, answerValidator);
         GuessNumberGame game = new GuessNumberGame(answer);
 
-        //game.start();
+        game.start();
         player.play(game);
         System.out.print(game.getResult());
     }
