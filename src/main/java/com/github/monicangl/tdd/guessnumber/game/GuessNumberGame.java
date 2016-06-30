@@ -6,6 +6,7 @@ import com.github.monicangl.tdd.guessnumber.game.state.GameState;
 import com.github.monicangl.tdd.guessnumber.game.state.GameStatus;
 import com.github.monicangl.tdd.guessnumber.game.state.history.GameHistory;
 import com.github.monicangl.tdd.guessnumber.game.state.history.GameRecord;
+import com.google.inject.Inject;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class GuessNumberGame {
     private GameState gameState;
     private static final int chance = 6;
 
+    @Inject
     public GuessNumberGame(Answer answer) {
         this.answer = answer;
     }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static com.github.monicangl.tdd.guessnumber.game.answer.Constants.numberBound;
+import static com.github.monicangl.tdd.guessnumber.game.answer.Constants.numberUpperBound;
 import static com.github.monicangl.tdd.guessnumber.game.answer.Constants.numberCount;
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -14,9 +14,8 @@ public class AnswerGenerator {
         Set<Integer> numbers = new HashSet<>(0);
         Random random = new Random();
         while (numbers.size() < numberCount) {
-            numbers.add(random.nextInt(numberBound));
+            numbers.add(random.nextInt(numberUpperBound + 1));
         }
-        List<Integer> answer = newArrayList(numbers);
-        return answer;
+        return newArrayList(numbers);
     }
 }

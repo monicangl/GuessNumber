@@ -3,6 +3,7 @@ package com.github.monicangl.tdd.guessnumber.game.answer;
 import com.github.monicangl.tdd.guessnumber.game.answer.exception.AnswerInvalidException;
 import com.github.monicangl.tdd.guessnumber.game.answer.generator.AnswerGenerator;
 import com.github.monicangl.tdd.guessnumber.game.answer.validator.AnswerValidator;
+import com.google.inject.Inject;
 
 import java.util.List;
 
@@ -11,9 +12,14 @@ public class Answer {
     private final AnswerValidator validator;
     private List<Integer> answer;
 
+    @Inject
     public Answer(AnswerGenerator generator, AnswerValidator validator) {
         this.generator = generator;
         this.validator = validator;
+    }
+
+    public void initAnswer() {
+        this.answer = generator.generate();
     }
 
     public AnswerResult guess(List<Integer> playerAnswer) {
@@ -54,9 +60,5 @@ public class Answer {
             }
         }
         return countOfRightNumberOnWrongPosition;
-    }
-
-    public void initAnswer() {
-        this.answer = generator.generate();
     }
 }
