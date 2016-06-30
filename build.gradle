@@ -34,7 +34,9 @@ dependencies {
     testCompile "org.mockito:mockito-core:1.+"
 
     //using google guava
-    //testCompile "com.google.guava:guava:19.0"
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    compile "com.google.guava:guava:19.0"
+
+    //using google guice
+    compile "com.google.inject:guice:4.0"
 
 }
