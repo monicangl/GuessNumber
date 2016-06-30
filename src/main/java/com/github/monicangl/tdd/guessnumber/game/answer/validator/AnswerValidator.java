@@ -1,4 +1,6 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game.answer.validator;
+
+import com.github.monicangl.tdd.guessnumber.game.answer.exception.AnswerInvalidException;
 
 import java.util.HashSet;
 import java.util.List;

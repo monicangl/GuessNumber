@@ -1,4 +1,4 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game.answer.generator;
 
 import java.util.HashSet;
 import java.util.List;

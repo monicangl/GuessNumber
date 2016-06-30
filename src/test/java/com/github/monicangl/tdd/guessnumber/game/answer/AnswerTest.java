@@ -1,5 +1,7 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game.answer;
 
+import com.github.monicangl.tdd.guessnumber.game.answer.generator.AnswerGenerator;
+import com.github.monicangl.tdd.guessnumber.game.answer.validator.AnswerValidator;
 import org.junit.Test;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class AnswerTest {
         List<Integer> playerAnswer = newArrayList(1, 2, 3, 4);
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("4A0B"));
@@ -38,7 +40,7 @@ public class AnswerTest {
         List<Integer> playerAnswer = newArrayList(1, 5, 6, 7);
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("1A0B"));
@@ -50,7 +52,7 @@ public class AnswerTest {
         List<Integer> playerAnswer = newArrayList(2, 4, 7 ,8);
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("0A2B"));
@@ -62,7 +64,7 @@ public class AnswerTest {
         List<Integer> playerAnswer = newArrayList(0, 3, 2, 4);
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("1A2B"));
@@ -74,7 +76,7 @@ public class AnswerTest {
         List<Integer> playerAnswer = newArrayList(5, 6, 7, 8);
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("0A0B"));
@@ -86,7 +88,7 @@ public class AnswerTest {
         List<Integer> playerAnswer = newArrayList(4, 3, 2, 1);
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("0A4B"));
@@ -99,7 +101,7 @@ public class AnswerTest {
 
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("输入不正确，重新输入"));
@@ -112,7 +114,7 @@ public class AnswerTest {
 
 
         // when
-        String result = answer.check(playerAnswer).getValue();
+        String result = answer.guess(playerAnswer).getMessage();
 
         // then
         assertThat(result, is("输入不正确，重新输入"));

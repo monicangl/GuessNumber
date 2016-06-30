@@ -1,5 +1,9 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game;
 
+import com.github.monicangl.tdd.guessnumber.game.answer.Answer;
+import com.github.monicangl.tdd.guessnumber.game.answer.generator.AnswerGenerator;
+import com.github.monicangl.tdd.guessnumber.game.state.history.GameHistory;
+import com.github.monicangl.tdd.guessnumber.game.answer.validator.AnswerValidator;
 import org.junit.Before;
 import org.junit.Test;
 

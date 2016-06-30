@@ -1,5 +1,6 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game.answer.generator;
 
+import com.github.monicangl.tdd.guessnumber.game.answer.generator.AnswerGenerator;
 import org.junit.Test;
 
 import java.util.HashSet;

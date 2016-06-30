@@ -1,5 +1,7 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game.answer.validator;
 
+import com.github.monicangl.tdd.guessnumber.game.answer.exception.AnswerInvalidException;
+import com.github.monicangl.tdd.guessnumber.game.answer.validator.AnswerValidator;
 import org.junit.Test;
 
 import static com.google.common.collect.Lists.newArrayList;

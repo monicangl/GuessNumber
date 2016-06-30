@@ -1,6 +1,8 @@
-package com.github.monicangl.tdd.guessnumber;
+package com.github.monicangl.tdd.guessnumber.game.answer;
 
-import javafx.util.Pair;
+import com.github.monicangl.tdd.guessnumber.game.answer.exception.AnswerInvalidException;
+import com.github.monicangl.tdd.guessnumber.game.answer.generator.AnswerGenerator;
+import com.github.monicangl.tdd.guessnumber.game.answer.validator.AnswerValidator;
 
 import java.util.List;
 
@@ -14,14 +16,14 @@ public class Answer {
         this.validator = validator;
     }
 
-    public Pair<Boolean, String> check(List<Integer> playerAnswer) {
+    public AnswerResult guess(List<Integer> playerAnswer) {
         if (!validatePlayerAnswer(playerAnswer)) {
-            return new Pair<>(false, "输入不正确，重新输入");
+            return new AnswerResult(false, "输入不正确，重新输入");
         }
         int countOfRightNumberOnRightPosition = this.countOfRightNumberOnRightPosition(playerAnswer);
         int countOfRightNumberOnWrongPosition = this.countOfRightNumberOnWrongPosition(playerAnswer);
         boolean success = countOfRightNumberOnRightPosition == playerAnswer.size();
-        return new Pair<>(success, countOfRightNumberOnRightPosition + "A" + countOfRightNumberOnWrongPosition + "B");
+        return new AnswerResult(success, countOfRightNumberOnRightPosition + "A" + countOfRightNumberOnWrongPosition + "B");
     }
 
     private boolean validatePlayerAnswer(List<Integer> answer) {
