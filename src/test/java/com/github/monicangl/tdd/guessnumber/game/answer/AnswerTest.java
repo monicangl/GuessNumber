@@ -19,7 +19,7 @@ public class AnswerTest {
         AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
         when(answerGenerator.generate()).thenReturn(newArrayList(1, 2, 3, 4));
         answer = new Answer(answerGenerator, new AnswerValidator());
-        answer.initAnswer();
+        answer.initialize();
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.github.monicangl.tdd.guessnumber.game.state.history;
+package com.github.monicangl.tdd.guessnumber.game.state;
 
 import java.util.List;
 

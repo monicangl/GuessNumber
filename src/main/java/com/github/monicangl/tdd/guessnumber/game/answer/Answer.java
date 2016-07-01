@@ -18,7 +18,7 @@ public class Answer {
         this.validator = validator;
     }
 
-    public void initAnswer() {
+    public void initialize() {
         this.answer = generator.generate();
     }
 

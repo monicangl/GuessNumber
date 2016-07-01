@@ -3,7 +3,7 @@ package com.github.monicangl.tdd.guessnumber.game;
 import com.github.monicangl.tdd.guessnumber.game.answer.Answer;
 import com.github.monicangl.tdd.guessnumber.game.answer.generator.AnswerGenerator;
 import com.github.monicangl.tdd.guessnumber.game.answer.validator.AnswerValidator;
-import com.github.monicangl.tdd.guessnumber.game.state.history.GameHistory;
+import com.github.monicangl.tdd.guessnumber.game.state.GameStatus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class GuessNumberGameTest {
         guessNumberGame.play(newArrayList(1, 3, 4, 5));
         guessNumberGame.play(newArrayList(1, 2, 6, 9));
         // then
-        assertThat(guessNumberGame.getResult(), is("六次未猜中,游戏失败"));
+        assertThat(guessNumberGame.gameStatus(), is(GameStatus.FAIL));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class GuessNumberGameTest {
         guessNumberGame.play(newArrayList(1, 2, 3, 4));
 
         // then
-        assertThat(guessNumberGame.getResult(), is("全中,胜出"));
+        assertThat(guessNumberGame.gameStatus(), is(GameStatus.SUCCESS));
     }
 
     @Test
@@ -62,15 +62,16 @@ public class GuessNumberGameTest {
         guessNumberGame.play(newArrayList(1, 3, 2, 7));
         guessNumberGame.play(newArrayList(1, 5, 9, 8));
 
-        GameHistory guessRecord = guessNumberGame.getHistory();
-
         // then
-        assertThat(guessRecord.getPlayTimes(), is(3));
-        assertThat(guessRecord.getPlayData(0), is(newArrayList(1, 5, 2, 3)));
-        assertThat(guessRecord.getPlayData(1), is(newArrayList(1, 3, 2, 7)));
-        assertThat(guessRecord.getPlayData(2), is(newArrayList(1, 5, 9, 8)));
-        assertThat(guessRecord.getPlayResult(0), is("1A2B"));
-        assertThat(guessRecord.getPlayResult(1), is("1A2B"));
-        assertThat(guessRecord.getPlayResult(2), is("1A0B"));
+        assertThat(guessNumberGame.playTimes(), is(3));
+        assertThat(guessNumberGame.getRecord(1).getAnswer(), is(newArrayList(1, 3, 2, 7)));
+        assertThat(guessNumberGame.getRecord(2).getAnswer(), is(newArrayList(1, 5, 9, 8)));
+        assertThat(guessNumberGame.getRecord(0).getResult(), is("1A2B"));
+        assertThat(guessNumberGame.getRecord(1).getResult(), is("1A2B"));
+        assertThat(guessNumberGame.getRecord(2).getResult(), is("1A0B"));
+
+//        assertThat(guessNumberGame.getRecord(0), is(new GameRecord(newArrayList(1, 5, 2, 3), "1A2B")));
+//        assertThat(guessNumberGame.getRecord(1), is(new GameRecord(newArrayList(1, 3, 2, 7), "1A2B")));
+//        assertThat(guessNumberGame.getRecord(2), is(new GameRecord(newArrayList(1, 5, 9, 8), "1A0B")));
     }
 }

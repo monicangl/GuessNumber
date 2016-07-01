@@ -1,6 +1,7 @@
 package com.github.monicangl.tdd.guessnumber;
 
 import com.github.monicangl.tdd.guessnumber.game.GuessNumberGame;
+import com.github.monicangl.tdd.guessnumber.game.state.GameStatus;
 import com.github.monicangl.tdd.guessnumber.player.GamePlayer;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -11,13 +12,15 @@ public class GameRunner {
         GuessNumberGame game = injector.getInstance(GuessNumberGame.class);
         GamePlayer player = new GamePlayer();
 
-        game.start();
-        //        player.play(game);
         do {
-            game.play(player.answer());
-        }
-        while (!game.isOver());
+            game.start();
+            //        player.play(game);
+            do {
+                game.play(player.answer());
+            }
+            while (!game.isOver());
 
-        System.out.print(game.getResult());
+        } while (game.gameStatus() == GameStatus.FAIL);
+
     }
 }

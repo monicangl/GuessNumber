@@ -19,9 +19,9 @@ public class AnswerGeneratorTest {
         List<Integer> answer = numberGenerator.generate();
 
         // then
-        assertThat(answer.size(), is(numberCount));
-        assertThat(new HashSet<>(answer).size(), is(numberCount));
-        assertThat(Range.closed(numberLowerBound, numberUpperBound).containsAll(answer), is(true));
+        assertThat(answer.size(), is(NUMBER_COUNT));
+        assertThat(new HashSet<>(answer).size(), is(NUMBER_COUNT));
+        assertThat(Range.closed(NUMBER_LOWER_BOUND, NUMBER_UPPER_BOUND).containsAll(answer), is(true));
     }
 
 
